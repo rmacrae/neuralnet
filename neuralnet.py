@@ -28,20 +28,20 @@ synapse1 = np.random.random(size=(3, 1)) - 1    # Weights on output layer inputs
 
 for iter in range(epochs):
     # forward propagation
-    l0 = X
-    l1 = nonlin(np.dot(l0, synapse0), False)
-    layer_2 = nonlin(np.dot(l1, synapse1), False)
+    layer_0 = X
+    layer_1 = nonlin(np.dot(layer_0, synapse0), False)
+    layer_2 = nonlin(np.dot(layer_1, synapse1), False)
 
     # Error Calculation
-    l1_error = y - layer_2
+    l2_error = y - layer_2
 
     # backward propagation
-    l2_delta = l1_error * nonlin(layer_2, True)
-    l1_delta = np.dot(l2_delta, synapse1.T) * nonlin(l1, True)
+    l2_delta = l2_error * nonlin(layer_2, True)
+    l1_delta = np.dot(l2_delta, synapse1.T) * nonlin(layer_1, True)
 
     # update weights
-    synapse1 += np.dot(l1.T, l2_delta)
-    synapse0 += np.dot(l0.T, l1_delta)
+    synapse1 += np.dot(layer_1.T, l2_delta)
+    synapse0 += np.dot(layer_0.T, l1_delta)
 
 # print results
 print ("Output After Training (%d epochs):" % epochs)
